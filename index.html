@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sustainability.md — An AI Skill for Sustainable Experience Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:    #1a2e1f;
+    --moss:      #2d4a35;
+    --fern:      #3d6b47;
+    --sage:      #7aab80;
+    --mist:      #c8dcc9;
+    --stone:     #f0ece3;
+    --parchment: #faf7f0;
+    --bark:      #5c4a35;
+    --amber:     #c8862a;
+    --ember:     #d4622a;
+    --ink:       #1a1a14;
+    --soft-ink:  #3a3a2e;
+
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body:    'Source Serif 4', Georgia, serif;
+    --font-mono:    'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; }
+  p { max-width: 65ch; }
+  a { color: var(--fern); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--amber); }
+
+  code, pre {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section { padding: 5rem 0; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 46, 31, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(122,171,128,0.2);
+    padding: 1rem 2rem;
+  }
+
+  nav .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  nav .wordmark {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--mist);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  nav .wordmark span { color: var(--sage); }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  nav .nav-links a {
+    color: var(--mist);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    opacity: 0.8;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  nav .nav-links a:hover { opacity: 1; color: var(--sage); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--forest);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding-top: 4rem;
+  }
+
+  /* Organic ring pattern behind hero */
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 60%;
+    transform: translate(-50%, -50%);
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(122,171,128,0.08);
+    box-shadow:
+      0 0 0 60px rgba(122,171,128,0.04),
+      0 0 0 120px rgba(122,171,128,0.03),
+      0 0 0 200px rgba(122,171,128,0.02);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--sage);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    color: var(--stone);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-headline em {
+    color: var(--sage);
+    font-style: italic;
+  }
+
+  .hero-subhead {
+    font-size: 1.25rem;
+    color: var(--mist);
+    font-weight: 300;
+    max-width: 55ch;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+    line-height: 1.6;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--sage);
+    color: var(--forest);
+    font-weight: 500;
+  }
+  .btn-primary:hover {
+    background: var(--mist);
+    color: var(--forest);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(122,171,128,0.3);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--mist);
+    border: 1px solid rgba(122,171,128,0.4);
+  }
+  .btn-ghost:hover {
+    border-color: var(--sage);
+    color: var(--sage);
+    transform: translateY(-1px);
+  }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    background: var(--moss);
+    border-top: 1px solid rgba(122,171,128,0.15);
+    border-bottom: 1px solid rgba(122,171,128,0.15);
+    padding: 2.5rem 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  .stat-strip-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--sage);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--mist);
+    opacity: 0.8;
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+  /* ── SECTIONS ── */
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fern);
+    margin-bottom: 1rem;
+  }
+
+  .section-headline {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .section-headline em { font-style: italic; color: var(--fern); }
+
+  .section-body {
+    font-size: 1.1rem;
+    color: var(--soft-ink);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── WHY SECTION ── */
+  #why { background: var(--parchment); }
+
+
+  /* ── WHAT SECTION ── */
+  #what { background: var(--stone); }
+
+  .behavior-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .behavior-card {
+    background: var(--parchment);
+    border: 1px solid rgba(61,107,71,0.15);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .behavior-card:hover {
+    border-color: var(--sage);
+    box-shadow: 0 4px 16px rgba(61,107,71,0.08);
+  }
+
+  .behavior-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--sage);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-desc {
+    font-size: 0.95rem;
+    color: var(--soft-ink);
+    line-height: 1.6;
+  }
+
+  /* ── HOW SECTION ── */
+  #how { background: var(--parchment); }
+
+  .step-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .step-num {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--moss);
+    color: var(--sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 0.4rem;
+  }
+
+  .step-content p {
+    font-size: 0.95rem;
+    color: var(--soft-ink);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--forest);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    position: relative;
+    margin: 0.75rem 0;
+  }
+
+  .code-block pre {
+    font-size: 0.82rem;
+    color: var(--mist);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .code-block .comment { color: var(--sage); opacity: 0.7; }
+
+  .copy-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(122,171,128,0.15);
+    border: 1px solid rgba(122,171,128,0.3);
+    color: var(--sage);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .copy-btn:hover { background: rgba(122,171,128,0.3); }
+  .copy-btn.copied { color: var(--amber); border-color: var(--amber); }
+
+  /* ── EXAMPLES SECTION ── */
+  #examples { background: var(--stone); }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .example-card {
+    background: var(--parchment);
+    border-radius: 4px;
+    padding: 1.5rem;
+    border-top: 3px solid var(--fern);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .example-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--fern);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .example-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--forest);
+    line-height: 1.3;
+  }
+
+  .example-desc {
+    font-size: 0.9rem;
+    color: var(--soft-ink);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .example-link {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fern);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .example-link:hover { color: var(--amber); }
+
+  /* ── SOURCES SECTION ── */
+  #sources { background: var(--parchment); }
+
+  .sources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .source-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--stone);
+    border-radius: 3px;
+    align-items: start;
+    font-size: 0.9rem;
+  }
+
+  .source-org {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--fern);
+    min-width: 5rem;
+    padding-top: 0.1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .source-desc { color: var(--soft-ink); line-height: 1.4; }
+
+  /* ── CONTRIBUTE SECTION ── */
+  #contribute {
+    background: var(--forest);
+    color: var(--mist);
+  }
+
+  #contribute .section-headline { color: var(--stone); }
+  #contribute .section-label { color: var(--sage); }
+  #contribute .section-body { color: var(--mist); opacity: 0.85; }
+
+  .contribute-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: var(--mist);
+    padding: 3rem 2rem;
+  }
+
+  .footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer-wordmark {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--mist);
+    letter-spacing: -0.02em;
+  }
+  .footer-wordmark span { color: var(--sage); }
+
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: var(--mist);
+    opacity: 0.5;
+    max-width: 30ch;
+  }
+
+  .footer-meta {
+    font-size: 0.8rem;
+    color: var(--mist);
+    opacity: 0.4;
+    font-family: var(--font-mono);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: right;
+  }
+
+  .footer-meta a { color: var(--sage); opacity: 0.7; }
+  .footer-meta a:hover { opacity: 1; }
+
+  .rare-lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--mist);
+    opacity: 0.6;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .rare-lockup:hover { opacity: 1; }
+
+  .rare-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--sage);
+    flex-shrink: 0;
+  }
+
+  /* ── DIVIDER ── */
+  .ornament {
+    text-align: center;
+    color: var(--sage);
+    opacity: 0.4;
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+    margin: 1rem 0 2.5rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .stat-strip-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .behavior-grid { grid-template-columns: 1fr; }
+    .examples-grid { grid-template-columns: 1fr; }
+    .sources-grid  { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .stat-strip { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="wordmark"><span>sustainability</span>.md</a>
+    <ul class="nav-links">
+      <li><a href="#why">Why</a></li>
+      <li><a href="#what">What</a></li>
+      <li><a href="#how">How to Use</a></li>
+      <li><a href="#examples">Examples</a></li>
+      <li><a href="#sources">Sources</a></li>
+      <li><a href="#contribute">Contribute</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">An open AI skill · v1.1.0 · CC BY 4.0</p>
+    <h1 class="hero-headline">
+      Sustainability belongs<br>in <em>every</em> design decision.
+    </h1>
+    <p class="hero-subhead">
+      <code>sustainability.md</code> is a reusable AI skill that integrates
+      carbon and water analysis, sustainability ROI, and hidden-emissions
+      detection into experience design, strategy, and operations work — automatically.
+    </p>
+    <div class="hero-cta-group">
+      <a href="https://github.com/brandonschauer/sustainability.md/blob/main/sustainability.md"
+         class="btn btn-primary" target="_blank">
+        ↓ Get the skill file
+      </a>
+      <a href="#how" class="btn btn-ghost">
+        → See how to use it
+      </a>
+    </div>
+  </div>
+
+  <!-- STAT STRIP lives at bottom of hero visually -->
+  <div class="stat-strip" style="position:absolute;bottom:0;left:0;right:0;">
+    <div class="stat-strip-inner">
+      <div class="stat">
+        <div class="stat-number">14×</div>
+        <div class="stat-label">lightbulbs lit for an hour — per<br>AI-assisted email sent</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">1 bottle</div>
+        <div class="stat-label">of water consumed<br>per AI-assisted email</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">2×</div>
+        <div class="stat-label">projected growth in AI workload<br>by 2030</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container reveal">
+    <p class="section-label">The argument</p>
+    <h2 class="section-headline">The tools we use matter.<br><em>The experiences we create matter more.</em></h2>
+
+    <p class="section-body">Consequences scale more through the experiences we create, than through the tools we use to create them.</p>
+
+    <p class="section-body">
+      AI has a real environmental footprint. But that footprint is small compared
+      to the sustainability impact embedded in the experiences AI helps us build —
+      the onboarding flows, recommendation engines, purchasing pathways, and
+      service designs that shape the daily decisions of millions of people.
+    </p>
+
+    <p class="section-body">
+      CX and UX professionals collectively manage the experience layer: where
+      demand meets supply, where behaviors are shaped, and where markets signal
+      what they want from the systems that serve them. That's enormous leverage —
+      and it's mostly going unused on sustainability.
+    </p>
+
+    <p class="section-body">
+      <code>sustainability.md</code> exists to change that. It's a skill file
+      you install once — in your AI's system prompt, in your team's shared
+      configuration, or in a single conversation — and sustainability analysis
+      joins your work from the start, not as an afterthought.
+    </p>
+
+    <div class="ornament">❃ ❃ ❃</div>
+
+    <p class="section-body" style="font-style:italic; opacity:0.75;">
+      This project is a demonstration initiative by
+      <a href="https://rare.org" target="_blank">Rare.org</a>, a conservation
+      nonprofit that unlocks the power of people to protect nature and fight
+      climate change. The skill itself is broadly applicable, grounded in
+      authoritative science, and free to use under CC BY 4.0.
+    </p>
+  </div>
+</section>
+
+<!-- WHAT -->
+<section id="what">
+  <div class="container reveal">
+    <p class="section-label">What the skill does</p>
+    <h2 class="section-headline">Four behaviors,<br><em>always integrated.</em></h2>
+    <p class="section-body">
+      When active, the sustainability skill instructs AI to apply four analytical
+      behaviors to every relevant response — woven into the work, not appended to it.
+    </p>
+
+    <div class="behavior-grid">
+      <div class="behavior-card">
+        <div class="behavior-num">01 — Analysis</div>
+        <div class="behavior-title">Sustainability Analysis</div>
+        <div class="behavior-desc">
+          For each recommendation or design decision, surfaces the primary
+          sustainability implications: carbon, water, land, waste, or
+          biodiversity — whichever are most relevant to the context.
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-num">02 — Impact</div>
+        <div class="behavior-title">Relatable Estimates</div>
+        <div class="behavior-desc">
+          Translates abstract emissions figures into human-scale comparisons:
+          miles driven, bottles of water, smartphones charged, trees needed.
+          Never omits estimates because data is imperfect.
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-num">03 — Ranking</div>
+        <div class="behavior-title">Sustainability ROI</div>
+        <div class="behavior-desc">
+          Ranks options by sustainability ROI alongside traditional metrics —
+          prioritizing solutions that align sustainability gains with existing
+          user motivations rather than adding friction.
+        </div>
+      </div>
+
+      <div class="behavior-card">
+        <div class="behavior-num">04 — Discovery</div>
+        <div class="behavior-title">Hidden Emissions</div>
+        <div class="behavior-desc">
+          Surfaces the non-obvious: printed onboarding materials, shipped
+          welcome kits, recommendation algorithms that suppress sustainable
+          options, overproduction defaults in food service, over-provisioned
+          infrastructure.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+  <div class="container reveal">
+    <p class="section-label">How to use it</p>
+    <h2 class="section-headline">Three ways to activate<br><em>sustainability analysis.</em></h2>
+
+    <div class="step-list">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>In a single conversation</h3>
+          <p>Paste this into any prompt where sustainability analysis would
+          strengthen the work. Works in Claude, ChatGPT, Gemini, and any
+          instruction-following model.</p>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+            <pre>For this entire conversation, use the sustainability skill: automatically include sustainability analysis, carbon and water impact estimates in relatable terms (e.g., miles driven, trees planted, showers taken), ranking by sustainability ROI alongside traditional metrics, and identification of hidden emissions or resource waste. Make this integrated, not an afterthought.</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>As a persistent system-level skill</h3>
+          <p>Reference the skill file directly in your AI system prompt or
+          skill configuration. The AI reads the full knowledge and instruction
+          layer on activation.</p>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+            <pre>Apply the sustainability skill from:
+https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustainability.md</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>For specific task types</h3>
+          <p>Prompt patterns tailored to common CX/UX and strategy workflows:</p>
+          <div class="code-block">
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+            <pre><span class="comment"># For experience audits</span>
+I'm auditing [experience name]. Apply the sustainability skill: identify hidden emissions and resource waste, estimate impact in relatable terms, and rank improvement opportunities by sustainability ROI alongside business ROI.
+
+<span class="comment"># For design alternatives</span>
+I'm evaluating these alternatives: [list]. Apply the sustainability skill: analyze each for carbon and water implications, identify hidden waste, and add a sustainability ROI column.
+
+<span class="comment"># For feature prioritization</span>
+I'm prioritizing this backlog: [list]. Apply the sustainability skill: add sustainability impact as a dimension and flag features with significant hidden emissions.</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXAMPLES -->
+<section id="examples">
+  <div class="container reveal">
+    <p class="section-label">Worked examples</p>
+    <h2 class="section-headline">The skill in action<br><em>across domains.</em></h2>
+    <p class="section-body">
+      Each example shows how sustainability analysis changes what gets surfaced —
+      and what gets built — when it's integrated from the start rather than
+      bolted on at the end.
+    </p>
+
+    <div class="examples-grid">
+
+      <div class="example-card">
+        <div class="example-tag">CX / UX Design</div>
+        <div class="example-title">CX Professionals as Sustainability Multipliers</div>
+        <div class="example-desc">
+          Three reference cases — LUT University, Klarna, Google Hotels — showing
+          the pattern: experience scale &gt; tool scale, and intention gaps &gt;
+          motivation gaps.
+        </div>
+        <a href="examples/cx-ux.md" class="example-link">Read example →</a>
+      </div>
+
+      <div class="example-card">
+        <div class="example-tag">HR / L&amp;D</div>
+        <div class="example-title">Sustainable New Hire Onboarding</div>
+        <div class="example-desc">
+          Applying the skill to onboarding experience design: async video vs.
+          live sessions, digital vs. printed materials, shipped kits vs.
+          digital-first welcome.
+        </div>
+        <a href="examples/onboarding.md" class="example-link">Read example →</a>
+      </div>
+
+      <div class="example-card">
+        <div class="example-tag">Operations</div>
+        <div class="example-title">Food Service and Demand Forecasting</div>
+        <div class="example-desc">
+          How AI-driven operational experience design reduced food waste by 20%
+          at LUT University — and what this pattern means for any organization
+          running food service at scale.
+        </div>
+        <a href="examples/food-service.md" class="example-link">Read example →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="container reveal">
+    <p class="section-label">Authoritative sources</p>
+    <h2 class="section-headline">Grounded in<br><em>peer-reviewed science.</em></h2>
+    <p class="section-body">
+      The skill's knowledge layer draws from these institutions and publications.
+      All are publicly accessible; all are cited in the skill file with direct links.
+    </p>
+
+    <div class="sources-grid">
+      <div class="source-row">
+        <div class="source-org">IPCC</div>
+        <div class="source-desc">AR6, SR1.5, SRCCL — climate science, food systems, land use</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">GHG Protocol</div>
+        <div class="source-desc">Corporate standard for Scope 1, 2, and 3 emissions accounting</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">WRI</div>
+        <div class="source-desc">World Resources Institute — applied sustainability analysis</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">IEA</div>
+        <div class="source-desc">International Energy Agency — global energy systems and buildings</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">SBTi</div>
+        <div class="source-desc">Science Based Targets initiative — business emissions targets</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">Water FP Network</div>
+        <div class="source-desc">Blue, green, and grey water footprint methodology</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">IPBES</div>
+        <div class="source-desc">Global biodiversity assessment — nature and ecosystem services</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">US EPA</div>
+        <div class="source-desc">eGRID — US electricity emissions factors by region</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">Shaolei Ren</div>
+        <div class="source-desc">UC Riverside — AI data center water and energy footprints</div>
+      </div>
+      <div class="source-row">
+        <div class="source-org">McKinsey</div>
+        <div class="source-desc">The cost of compute — AI workload growth projections to 2030</div>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem; font-size:0.9rem; color:var(--soft-ink); opacity:0.7; font-style:italic;">
+      Full citations with URLs are in the skill file. The source list is versioned
+      and updated monthly — see CHANGELOG.md.
+    </p>
+  </div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section id="contribute">
+  <div class="container reveal">
+    <p class="section-label">Open collaboration</p>
+    <h2 class="section-headline">This skill belongs<br><em>to everyone.</em></h2>
+    <p class="section-body">
+      <code>sustainability.md</code> is released under CC BY 4.0. Use it, adapt
+      it, redistribute it with attribution. The more organizations that integrate
+      sustainability into their AI workflows, the greater the cumulative impact
+      on the experience layer.
+    </p>
+    <p class="section-body">
+      Contributions are welcome — especially new authoritative sources, worked
+      examples from additional domains, and updated emissions conversion factors.
+      The skill is versioned semantically; the CHANGELOG is public.
+    </p>
+    <div class="contribute-actions">
+      <a href="https://github.com/brandonschauer/sustainability.md" class="btn btn-primary" target="_blank">
+        ↗ View on GitHub
+      </a>
+      <a href="https://github.com/brandonschauer/sustainability.md/issues/new" class="btn btn-ghost" target="_blank">
+        + Open an issue
+      </a>
+      <a href="https://github.com/brandonschauer/sustainability.md/blob/main/CONTRIBUTING.md" class="btn btn-ghost" target="_blank">
+        Contributing guide
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-wordmark"><span>sustainability</span>.md</div>
+      <div class="footer-tagline">An AI skill for integrating sustainability into experience design, strategy, and operations.</div>
+      <a href="https://rare.org" class="rare-lockup" target="_blank" style="margin-top:0.5rem;">
+        <div class="rare-dot"></div>
+        A Rare.org demonstration project
+      </a>
+    </div>
+    <div class="footer-meta">
+      <span>v1.1.0 · March 2026</span>
+      <span>CC BY 4.0</span>
+      <a href="https://github.com/brandonschauer/sustainability.md/blob/main/CHANGELOG.md" target="_blank">CHANGELOG</a>
+      <a href="https://github.com/brandonschauer/sustainability.md" target="_blank">GitHub</a>
+      <a href="https://rare.org" target="_blank">Rare.org</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    }),
+    { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── COPY BUTTON ──
+  function copyCode(btn) {
+    const pre = btn.nextElementSibling;
+    navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+      btn.textContent = 'copied ✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
