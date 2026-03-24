@@ -235,44 +235,6 @@
     transform: translateY(-1px);
   }
 
-  /* ── STAT STRIP ── */
-  .stat-strip {
-    background: var(--moss);
-    border-top: 1px solid rgba(122,171,128,0.15);
-    border-bottom: 1px solid rgba(122,171,128,0.15);
-    padding: 2.5rem 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 1s forwards;
-  }
-
-  .stat-strip-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--sage);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .stat-label {
-    font-size: 0.85rem;
-    color: var(--mist);
-    opacity: 0.8;
-    font-weight: 300;
-    line-height: 1.4;
-  }
 
   /* ── SECTIONS ── */
 
@@ -590,24 +552,6 @@
   .footer-meta a { color: var(--sage); opacity: 0.7; }
   .footer-meta a:hover { opacity: 1; }
 
-  .rare-lockup {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.85rem;
-    color: var(--mist);
-    opacity: 0.6;
-    text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .rare-lockup:hover { opacity: 1; }
-
-  .rare-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--sage);
-    flex-shrink: 0;
-  }
 
   /* ── DIVIDER ── */
   .ornament {
@@ -637,12 +581,10 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 700px) {
-    .stat-strip-inner { grid-template-columns: 1fr; gap: 1.5rem; }
     .behavior-grid { grid-template-columns: 1fr; }
     .examples-grid { grid-template-columns: 1fr; }
     .sources-grid  { grid-template-columns: 1fr; }
     nav .nav-links { display: none; }
-    .stat-strip { display: none; }
   }
 </style>
 </head>
@@ -676,33 +618,17 @@
       detection into experience design, strategy, and operations work — automatically.
     </p>
     <div class="hero-cta-group">
-      <a href="https://github.com/brandonschauer/sustainability.md/blob/main/sustainability.md"
-         class="btn btn-primary" target="_blank">
-        ↓ Get the skill file
+      <a href="#how" class="btn btn-primary">
+        → How to use the skill
       </a>
-      <a href="#how" class="btn btn-ghost">
-        → See how to use it
+      <a href="https://github.com/brandonschauer/sustainability.md/blob/main/sustainability.md"
+         class="btn btn-ghost" target="_blank">
+        ↗ View it on GitHub
       </a>
     </div>
   </div>
 
-  <!-- STAT STRIP lives at bottom of hero visually -->
-  <div class="stat-strip" style="position:absolute;bottom:0;left:0;right:0;">
-    <div class="stat-strip-inner">
-      <div class="stat">
-        <div class="stat-number">14×</div>
-        <div class="stat-label">lightbulbs lit for an hour — per<br>AI-assisted email sent</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">1 bottle</div>
-        <div class="stat-label">of water consumed<br>per AI-assisted email</div>
-      </div>
-      <div class="stat">
-        <div class="stat-number">2×</div>
-        <div class="stat-label">projected growth in AI workload<br>by 2030</div>
-      </div>
-    </div>
-  </div>
+
 </section>
 
 <!-- WHY -->
@@ -736,13 +662,7 @@
 
     <div class="ornament">❃ ❃ ❃</div>
 
-    <p class="section-body" style="font-style:italic; opacity:0.75;">
-      This project is a demonstration initiative by
-      <a href="https://rare.org" target="_blank">Rare.org</a>, a conservation
-      nonprofit that unlocks the power of people to protect nature and fight
-      climate change. The skill itself is broadly applicable, grounded in
-      authoritative science, and free to use under CC BY 4.0.
-    </p>
+
   </div>
 </section>
 
@@ -805,55 +725,60 @@
 <section id="how">
   <div class="container reveal">
     <p class="section-label">How to use it</p>
-    <h2 class="section-headline">Three ways to activate<br><em>sustainability analysis.</em></h2>
+    <h2 class="section-headline">Install it once.<br><em>It works every time.</em></h2>
+    <p class="section-body">
+      The most effective way to use <code>sustainability.md</code> is to install it
+      as a persistent system-level instruction in your AI tool of choice. Do this
+      once and sustainability analysis will be present in every session — no
+      re-prompting required.
+    </p>
+    <p class="section-body" style="margin-bottom: 2rem;">
+      The instruction to paste is the same for every tool:
+    </p>
+
+    <div class="code-block" style="margin-bottom: 3rem;">
+      <button class="copy-btn" onclick="copyCode(this)">copy</button>
+      <pre>Apply the sustainability skill from:
+https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustainability.md</pre>
+    </div>
+
+    <p class="section-label" style="margin-bottom: 1.5rem;">Where to paste it — by tool</p>
 
     <div class="step-list">
 
       <div class="step">
-        <div class="step-num">1</div>
+        <div class="step-num">①</div>
         <div class="step-content">
-          <h3>In a single conversation</h3>
-          <p>Paste this into any prompt where sustainability analysis would
-          strengthen the work. Works in Claude, ChatGPT, Gemini, and any
-          instruction-following model.</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="copyCode(this)">copy</button>
-            <pre>For this entire conversation, use the sustainability skill: automatically include sustainability analysis, carbon and water impact estimates in relatable terms (e.g., miles driven, trees planted, showers taken), ranking by sustainability ROI alongside traditional metrics, and identification of hidden emissions or resource waste. Make this integrated, not an afterthought.</pre>
-          </div>
+          <h3>ChatGPT</h3>
+          <p>ChatGPT supports persistent custom instructions that apply to every conversation.</p>
+          <p>Click your profile picture (bottom-left) → <strong>Customize ChatGPT</strong> → in the <strong>"What would you like ChatGPT to know about you?"</strong> or <strong>"How would you like ChatGPT to respond?"</strong> field, paste the instruction above → click <strong>Save</strong>. It will be active in all new chats.</p>
         </div>
       </div>
 
       <div class="step">
-        <div class="step-num">2</div>
+        <div class="step-num">②</div>
         <div class="step-content">
-          <h3>As a persistent system-level skill</h3>
-          <p>Reference the skill file directly in your AI system prompt or
-          skill configuration. The AI reads the full knowledge and instruction
-          layer on activation.</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="copyCode(this)">copy</button>
-            <pre>Apply the sustainability skill from:
-https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustainability.md</pre>
-          </div>
+          <h3>Gemini</h3>
+          <p>Gemini supports persistent instructions through Gems — custom AI configurations you save and reuse.</p>
+          <p>Go to <strong>gemini.google.com</strong> → click <strong>Gems</strong> in the left sidebar → click <strong>New Gem</strong> → give it a name (e.g., "Sustainability") → in the instructions field, paste the instruction above → click <strong>Save</strong>. Open this Gem whenever you want sustainability analysis active.</p>
         </div>
       </div>
 
       <div class="step">
-        <div class="step-num">3</div>
+        <div class="step-num">③</div>
         <div class="step-content">
-          <h3>For specific task types</h3>
-          <p>Prompt patterns tailored to common CX/UX and strategy workflows:</p>
-          <div class="code-block">
-            <button class="copy-btn" onclick="copyCode(this)">copy</button>
-            <pre><span class="comment"># For experience audits</span>
-I'm auditing [experience name]. Apply the sustainability skill: identify hidden emissions and resource waste, estimate impact in relatable terms, and rank improvement opportunities by sustainability ROI alongside business ROI.
+          <h3>Claude</h3>
+          <p>Claude supports persistent instructions through Projects — shared workspaces that retain context across conversations.</p>
+          <p>Go to <strong>claude.ai</strong> → click <strong>Projects</strong> in the left sidebar → create a new Project or open an existing one → click <strong>Project instructions</strong> → paste the instruction above → click <strong>Save</strong>. Every conversation inside that Project will have the skill active.</p>
+        </div>
+      </div>
 
-<span class="comment"># For design alternatives</span>
-I'm evaluating these alternatives: [list]. Apply the sustainability skill: analyze each for carbon and water implications, identify hidden waste, and add a sustainability ROI column.
-
-<span class="comment"># For feature prioritization</span>
-I'm prioritizing this backlog: [list]. Apply the sustainability skill: add sustainability impact as a dimension and flag features with significant hidden emissions.</pre>
-          </div>
+      <div class="step">
+        <div class="step-num">④</div>
+        <div class="step-content">
+          <h3>Llama (via local runners)</h3>
+          <p>If you're running Llama locally through <strong>Ollama</strong>, <strong>LM Studio</strong>, or a similar tool, paste the instruction into the system prompt field before starting a session.</p>
+          <p>In <strong>Ollama</strong>: include it in your <code>Modelfile</code> as a <code>SYSTEM</code> directive. In <strong>LM Studio</strong>: paste it into the <strong>System Prompt</strong> field in the Chat panel. For API usage, pass it as the <code>system</code> parameter in your request body.</p>
         </div>
       </div>
 
@@ -1007,17 +932,12 @@ I'm prioritizing this backlog: [list]. Apply the sustainability skill: add susta
     <div class="footer-brand">
       <div class="footer-wordmark"><span>sustainability</span>.md</div>
       <div class="footer-tagline">An AI skill for integrating sustainability into experience design, strategy, and operations.</div>
-      <a href="https://rare.org" class="rare-lockup" target="_blank" style="margin-top:0.5rem;">
-        <div class="rare-dot"></div>
-        A Rare.org demonstration project
-      </a>
     </div>
     <div class="footer-meta">
       <span>v1.1.0 · March 2026</span>
       <span>CC BY 4.0</span>
       <a href="https://github.com/brandonschauer/sustainability.md/blob/main/CHANGELOG.md" target="_blank">CHANGELOG</a>
       <a href="https://github.com/brandonschauer/sustainability.md" target="_blank">GitHub</a>
-      <a href="https://rare.org" target="_blank">Rare.org</a>
     </div>
   </div>
 </footer>
