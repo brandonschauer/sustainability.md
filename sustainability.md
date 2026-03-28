@@ -1,6 +1,6 @@
 ---
 name: sustainability
-version: 1.1.0
+version: 1.1.1
 released: 2026-03
 description: >
   Activate this skill whenever a task involves customer experience (CX), user
@@ -83,7 +83,8 @@ Use the most apt analog for the context. Examples:
 - Flights taken (e.g., NYC–LAX ≈ 0.6 tonnes CO₂e per passenger)
 - Smartphones charged (≈ 8.22g CO₂e per charge)
 - Trees needed to absorb equivalent emissions over one year (≈ 21 kg CO₂e/tree/year)
-- Hours of average US household electricity (≈ 0.386 kg CO₂e/kWh, EPA eGRID)
+- Hours of average US household electricity (≈ 0.386 kg CO₂e/kWh, EPA eGRID);
+  for non-US contexts, use IEA Emissions Factors by country
 
 **Water:**
 - Showers taken (average US shower ≈ 17 gallons / 65 liters)
@@ -260,6 +261,7 @@ These are the primary sources this skill draws from. All are publicly accessible
 | Science Based Targets initiative (SBTi) | Business targets | sciencebasedtargets.org |
 | World Resources Institute (WRI) | Applied sustainability | wri.org |
 | International Energy Agency (IEA) | Energy systems | iea.org |
+| IEA Emissions Factors | Grid electricity emissions by country | iea.org/data-and-statistics/data-product/emissions-factors-2025 |
 | Water Footprint Network | Water accounting | waterfootprint.org |
 | IPBES Global Assessment (2019) | Biodiversity | ipbes.net/global-assessment |
 | FAO AQUASTAT | Freshwater / agriculture | fao.org/aquastat |
