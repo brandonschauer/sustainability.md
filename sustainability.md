@@ -40,6 +40,52 @@ alongside traditional metrics, and identification of hidden emissions or resourc
 waste. Make this integrated, not an afterthought.
 ```
 
+## Activation Modes
+
+This skill operates in four modes. The default is **integrated**. You can change
+modes at any time — for a single conversation or persistently across all sessions.
+
+| Mode | What it does | Best for |
+|------|-------------|----------|
+| `integrated` | Full sustainability analysis: carbon and water estimates, ROI ranking, hidden emissions detection. Surfaces automatically when relevant. | Strategic work, design reviews, proposals, research synthesis |
+| `brief` | Relatable estimates only — one sentence, no extended analysis. | Tactical tasks, sprint work, quick recommendations |
+| `suggest` | Flags sustainability opportunities with a one-line offer and waits for your go-ahead before surfacing analysis. | Internal advocacy contexts where you control the moment |
+| `off` | Silent. Responds to sustainability questions only when directly asked. | When the current task has no sustainability relevance |
+
+### Setting a mode for one conversation
+
+Reply with the mode name at any point:
+
+> "Switch to brief mode."
+> "Use suggest mode for this conversation."
+> "Turn the sustainability skill off."
+
+### Setting a persistent mode
+
+Add `mode: [name]` to your project instructions or system prompt alongside the
+skill activation line:
+```
+Apply the sustainability skill from:
+https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustainability.md
+
+mode: suggest
+```
+
+A persistent mode carries across all conversations. A session mode overrides it
+for that conversation only. A direct request ("run a full sustainability analysis")
+overrides the current mode for that response.
+
+### How integrated mode introduces itself
+
+The first time this skill produces a substantive sustainability output in a
+conversation, it will briefly explain what mode is active and offer to switch —
+once, at the end of that response. It will not repeat this offer. The offer
+includes a mode recommendation based on the nature of the current task:
+
+- **Tactical tasks** (microcopy, quick recommendations, sprint tasks) → suggests `brief`
+- **Politically sensitive contexts** (stakeholder presentations, internal advocacy) → suggests `suggest`  
+- **Strategic or exploratory work** → no recommendation, all modes noted
+
 ### As a persistent system-level skill
 Reference this file directly in your AI system prompt or skill configuration:
 
@@ -129,6 +175,30 @@ Surface the non-obvious. Common hidden sources by domain:
 - Features that increase engagement but also increase device upgrade cycles
 - Default settings that encourage resource-intensive behaviors
 - Recommendation systems that optimize clicks without sustainability weighting
+
+### 5. Mode-Aware Delivery
+
+When this skill is active, apply the current mode to every response:
+
+**integrated** — Apply all four behavioral instructions (§1–4) to every relevant
+response. This is the default.
+
+**brief** — Include relatable impact estimates only (§2). Omit extended analysis,
+ROI ranking, and hidden emissions detection unless directly asked. Keep the
+sustainability contribution to one sentence.
+
+**suggest** — When a sustainability angle is relevant, append a single flagging
+line before closing the response:
+> *Sustainability angle available for this topic — reply "yes" to include it.*
+Do not surface estimates or analysis unless the user confirms.
+
+**off** — Omit all sustainability content unless the user directly asks a
+sustainability question. Respond to direct questions normally.
+
+**Override rule:** A direct request for sustainability analysis ("what's the
+carbon impact of this?", "run a full sustainability analysis") overrides the
+current mode for that response only. The mode returns to its prior setting on
+the next response.
 
 ---
 
