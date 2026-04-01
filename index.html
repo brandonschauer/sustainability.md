@@ -544,7 +544,7 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-content">
-    <p class="hero-eyebrow">An open AI skill &middot; v1.1.1 &middot; CC BY 4.0</p>
+    <p class="hero-eyebrow">An open AI skill &middot; v1.1.0 &middot; CC BY 4.0</p>
     <h1 class="hero-headline">
       Sustainability can be a part of <em>every</em> design decision.
     </h1>
@@ -569,7 +569,7 @@
 <section id="howitworks">
   <div class="container reveal">
     <p class="section-label">How it works</p>
-    <h2 class="section-headline">Add this skill to the AI you use for shaping <em>experience design decisions.</em></h2>
+    <h2 class="section-headline">Add this skill to the AI you use for shaping<br><em>experience design decisions.</em></h2>
     <p class="section-body">
       It will surface sustainability considerations that align with the work you&rsquo;re already doing.
     </p>
@@ -831,7 +831,7 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
       <div class="footer-tagline">An AI skill for integrating sustainability into experience design, strategy, and operations.</div>
     </div>
     <div class="footer-meta">
-      <span>v1.1.1 &middot; March 2026</span>
+      <span>v1.1.0 &middot; March 2026</span>
       <span>CC BY 4.0</span>
       <a href="https://github.com/brandonschauer/sustainability.md/blob/main/CHANGELOG.md" target="_blank">CHANGELOG</a>
       <a href="https://github.com/brandonschauer/sustainability.md" target="_blank">GitHub</a>
@@ -862,6 +862,10 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
         btn.textContent = 'copy';
         btn.classList.remove('copied');
       }, 2000);
+      // ── CLOUDFLARE ANALYTICS: track skill copy intent ──
+      if (typeof window.__cfBeacon !== 'undefined') {
+        window.__cfBeacon.send({ type: 'event', name: 'skill_copy_intent' });
+      }
     });
   }
 </script>
