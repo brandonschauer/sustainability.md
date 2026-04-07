@@ -856,30 +856,24 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
 
   // ── COPY BUTTON ──
   function copyCode(btn) {
-    const pre = btn.nextElementSibling;
+  const pre = btn.nextElementSibling;
 
-    // Fire beacon immediately on click (must be synchronous)
-    try {
-      const beaconScript = document.querySelector('script[data-cf-beacon]');
-      if (beaconScript) {
-        const token = JSON.parse(beaconScript.getAttribute('data-cf-beacon')).token;
-        navigator.sendBeacon(
-          'https://cloudflareinsights.com/cdn-cgi/rum',
-          new Blob([JSON.stringify({ type: 'event', name: 'skill_copy_intent', token: token })],
-            { type: 'application/json' })
-        );
-      }
-    } catch(e) {}
+  // ── CLOUDFLARE ANALYTICS: push event into beacon queue ──
+  try {
+    if (window.__cfBeacon) {
+      window.__cfBeacon.push({ name: 'skill_copy_intent' });
+    }
+  } catch(e) {}
 
-    navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
-      btn.textContent = 'copied \u2713';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'copy';
-        btn.classList.remove('copied');
-      }, 2000);
-    });
-  }
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    btn.textContent = 'copied \u2713';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'copy';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
 </script>
 </body>
 </html>
