@@ -854,20 +854,31 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
 
   // ── COPY BUTTON ──
   function copyCode(btn) {
-    const pre = btn.nextElementSibling;
-    navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
-      btn.textContent = 'copied \u2713';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'copy';
-        btn.classList.remove('copied');
-      }, 2000);
-      // ── CLOUDFLARE ANALYTICS: track skill copy intent ──
-      if (typeof window.__cfBeacon !== 'undefined') {
-        window.__cfBeacon.send({ type: 'event', name: 'skill_copy_intent' });
+  const pre = btn.nextElementSibling;
+  navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
+    btn.textContent = 'copied \u2713';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'copy';
+      btn.classList.remove('copied');
+    }, 2000);
+
+    // ── CLOUDFLARE ANALYTICS: track skill copy intent ──
+    try {
+      const beacon = document.querySelector('script[data-cf-beacon]');
+      if (beacon) {
+        const token = JSON.parse(beacon.getAttribute('data-cf-beacon')).token;
+        const body = JSON.stringify({
+          type: 'event',
+          name: 'skill_copy_intent',
+          token: token
+        });
+        navigator.sendBeacon('https://cloudflareinsights.com/cdn-cgi/rum', 
+          new Blob([body], { type: 'application/json' }));
       }
-    });
-  }
+    } catch(e) {}
+  });
+}
 </script>
 </body>
 </html>
