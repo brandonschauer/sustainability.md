@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "sustainability",
+  "version": "1.4.2",
+  "description": "Weaves carbon, water and hidden-emissions insight into experience design, strategy and operations work. Auto-triggers on CX/UX, journey mapping, prioritization, events and procurement tasks — even when the user never says \"sustainability\".",
+  "author": {
+    "name": "Brandon Schauer",
+    "email": "brandonschauer@gmail.com",
+    "url": "https://sustainability.md"
+  },
+  "homepage": "https://sustainability.md",
+  "repository": "https://github.com/brandonschauer/sustainability.md",
+  "license": "CC-BY-4.0",
+  "keywords": [
+    "sustainability",
+    "climate",
+    "carbon",
+    "cx",
+    "ux",
+    "service-design",
+    "strategy",
+    "operations"
+  ]
+}
