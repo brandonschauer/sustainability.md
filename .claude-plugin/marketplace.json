@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "sustainability-md",
+  "description": "sustainability.md — sustainability analysis woven into CX, design, strategy and operations work.",
+  "owner": {
+    "name": "Brandon Schauer",
+    "email": "brandonschauer@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "sustainability",
+      "source": "./plugins/sustainability",
+      "description": "Surfaces carbon, water and hidden-emissions insight inside design, strategy and operations work — without taking over the task.",
+      "category": "productivity",
+      "tags": ["sustainability", "cx", "ux", "strategy", "operations", "climate"]
+    }
+  ]
+}
