@@ -730,6 +730,31 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
       </div>
 
     </div>
+
+    <p class="section-label" style="margin-top: 4rem; margin-bottom: 1.5rem;">Claude Code &mdash; install it as a plugin</p>
+    <p class="section-body">
+      If you work in Claude Code, there is a fuller option. Rather than pasting an
+      instruction, install <code>sustainability.md</code> as a plugin: the skill
+      loads itself whenever the work calls for it, and it brings its knowledge
+      layer &mdash; the conversion factors, reference cases, and cited sources &mdash;
+      along with it.
+    </p>
+
+    <div class="code-block" style="margin-bottom: 1.5rem;">
+      <button class="copy-btn" onclick="copyCode(this, 'plugin_install_intent')">copy</button>
+      <pre>/plugin marketplace add brandonschauer/sustainability.md
+/plugin install sustainability@sustainability-md</pre>
+    </div>
+
+    <p class="section-body">
+      Send them as two separate prompts, then restart Claude Code. You also get two
+      commands: <code>/sustainability</code> sets how much it says &mdash;
+      <code>integrated</code>, <code>deep</code>, <code>brief</code>,
+      <code>suggest</code>, or <code>off</code> &mdash; and
+      <code>/sustainability-review</code> scans a document, plan, or design artifact
+      for hidden emissions and the one or two changes most worth making.
+    </p>
+
   </div>
 </section>
 
@@ -855,13 +880,16 @@ https://raw.githubusercontent.com/brandonschauer/sustainability.md/main/sustaina
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // ── COPY BUTTON ──
-  function copyCode(btn) {
+  function copyCode(btn, eventName) {
   const pre = btn.nextElementSibling;
 
   // ── CLOUDFLARE ANALYTICS: push event into beacon queue ──
+  // eventName lets each copy target report separately: the paste-the-instruction
+  // block stays 'skill_copy_intent', the plugin block reports its own. Defaults
+  // to the original name so existing buttons are unchanged.
   try {
     if (window.__cfBeacon) {
-      window.__cfBeacon.push({ name: 'skill_copy_intent' });
+      window.__cfBeacon.push({ name: eventName || 'skill_copy_intent' });
     }
   } catch(e) {}
 
